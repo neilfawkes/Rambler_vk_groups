@@ -11,7 +11,7 @@ def create_tables():
             group_list.append(group.replace('vk.com/', '').strip('\n'))
 
     for group in group_list:
-        # у одной из групп в названии прописана точка, что создаёт конфликт при создании SQL-таблицы с данным именем
+        # if group name contains a dot it will cause conflict when creating SQL-table
         create_table(group.replace('.', '_'))
     return group_list
 
@@ -23,20 +23,20 @@ def job():
     
     for group in group_list:
         subs = get_subs(group, access_token)
-        # мы ранее поменяли все точки в названиях групп на нижние подчёркивания
+        # we replaced all dots in names with underscores earlier
         add_data(group.replace('.', '_'), date, subs)
-    print(f"Добавлена статистика за {date}")
+    print(f"Added stats, {date}")
     conn.close()
 
 
 if __name__ == "__main__":
-    access_token = input('Введите токен для ВК (если у Вас нет токена,\nнапечатайте "нет" и пройдите по ссылке): ')
-    if access_token == "нет":
+    access_token = input("Input vk access token (if you don't have one please print 'no' and follow the link): ")
+    if access_token == "no":
         get_token()
-        access_token = input('Введите полученный токен для ВК: ')
+        access_token = input('Input vk access token: ')
 
     schedule.every().day.at("09:00").do(job)
-    # для проверки работы кода:
+    # for testing thw code use the following:
     # schedule.every(10).seconds.do(job)
 
     while True:
