@@ -1,9 +1,8 @@
 # VK groups parser
 
-Данный скрипт каждый день в 9 утра парсит указанные в файле "groups_list.txt" группы ВК и сохраняет в БД информацию о количестве участников с указанием даты.
+This script parses given in "groups_list.txt" vk-groups every day at 9 am and saves the number of followers and date in DB.
 
-Код выполнен с использованием VK API и библиотек:
-
+The script is written using VK API and following libraries:
 - schedule;
 - time;
 - datetime;
@@ -13,4 +12,4 @@
 - json;
 - urllib.parse.
 
-Код соответствует PEP8.
+The code was written according to PEP8.
